@@ -43,9 +43,9 @@ Feature extraction (color / texture / shape) → similarity → ranking → expl
 | Team Member | Responsibility |
 |---|---|
 | Dev Patel | Data handling and processing |
-| Dhruvi Faldu | Feature extraction — color, texture, and shape |
+| Dhruvi Faldu | Feature extraction color, texture and shape |
 | Aastha Gandhi | Similarity calculation and ranking |
-| Aashi Bhimjiyani | Explainability, evaluation, and documentation |
+| Aashi Bhimjiyani | Explainability, evaluation and documentation |
 
 This task split is tentative and may be adjusted as the project progresses.
 *(Note: Since the dataset is already provided, no data collection is required; work focuses on data loading, preprocessing, and pipeline development).*
