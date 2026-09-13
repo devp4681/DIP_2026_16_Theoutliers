@@ -32,8 +32,20 @@ Dataset Details:
 - Number of classes/labels: 17
 - Image size: 600 × 600 pixels
 - Label format: To be confirmed from the downloaded dataset structure
+- Note: Dataset is already provided (no separate dataset collection required)
 
 ## 3. Planned Pipeline
 
 Feature extraction (color / texture / shape) → similarity → ranking → explainability
 
+## 4. Task Split
+
+| Team Member | Responsibility |
+|---|---|
+| devp4681 | Dataset preparation and data loading *(Dataset is already provided)* |
+| dhruvif16 | Feature extraction — color, texture, and shape |
+| aastha280406 | Similarity calculation and ranking |
+| Aashilearnstocode | Explainability, evaluation, and documentation |
+
+This task split is tentative and may be adjusted as the project progresses.
+*(Note: Since the dataset is already provided, no data collection is required; work focuses on data loading, preprocessing, and pipeline development).*

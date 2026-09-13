@@ -9,17 +9,21 @@
 - **Project Number**: 16
 - **Group Name**: Theoutliers
 - **Duration**: 10 Weeks
+- **Problem Statement**: Develop an explainable classical computer-vision-based CBIR system for multi-label aerial images that retrieves visually and semantically similar images based on handcrafted features.
+- **Dataset**: AID Multi-label aerial image dataset *(Dataset is already provided; no data collection required)*
 
 ---
 
-## 👥 Team Members
+## 👥 Team Members & Task Split
 
-| Name / GitHub Username | Profile Link | Role / Responsibility |
+| Team Member / GitHub | Profile Link | Responsibility |
 |---|---|---|
-| **devp4681** | [@devp4681](https://github.com/devp4681) | Contributor |
-| **dhruvif16** | [@dhruvif16](https://github.com/dhruvif16) | Contributor |
-| **aastha280406** | [@aastha280406](https://github.com/aastha280406) | Contributor |
-| **Aashilearnstocode** | [@Aashilearnstocode](https://github.com/Aashilearnstocode) | Contributor |
+| **devp4681** | [@devp4681](https://github.com/devp4681) | Dataset preparation and data loading *(Dataset is already provided)* |
+| **dhruvif16** | [@dhruvif16](https://github.com/dhruvif16) | Feature extraction — color, texture, and shape |
+| **aastha280406** | [@aastha280406](https://github.com/aastha280406) | Similarity calculation and ranking |
+| **Aashilearnstocode** | [@Aashilearnstocode](https://github.com/Aashilearnstocode) | Explainability, evaluation, and documentation |
+
+> **Note**: This task split is tentative and may be adjusted as the project progresses. Since the dataset is already provided, work focuses on data loading, inspection, preprocessing, and pipeline development.
 
 ---
 
@@ -27,20 +31,30 @@
 
 ```text
 DIP_2026_16_Theoutliers/
-├── Codes/                     # Source codes, scripts, and notebooks
+├── Codes/
+│   ├── README.md
+│   ├── data/
+│   │   └── .gitkeep
+│   ├── features/
+│   │   └── .gitkeep
+│   ├── retrieval/
+│   │   └── .gitkeep
+│   ├── utils/
+│   │   └── .gitkeep
+│   └── requirements.txt
+├── Mid_Sem_Report/
 │   └── README.md
-├── Mid_Sem_Report/            # Mid-semester IEEE 2-page report and presentation materials
+├── End_Sem_Report/
 │   └── README.md
-├── End_Sem_Report/            # End-semester IEEE 4-page report and presentation materials
-│   └── README.md
-├── Results/                   # Experimental outputs, figures, visualizations, and tables
+├── Results/
 │   ├── graphs/
 │   ├── images/
 │   ├── tables/
 │   └── README.md
-├── Weekly_Progress_Reports/   # Weekly log updates and milestone tracking
-│   └── README.md
-└── README.md                  # Main project documentation
+├── Weekly_Progress_Reports/
+│   ├── README.md
+│   └── Week1.md
+└── README.md
 ```
 
 ---
