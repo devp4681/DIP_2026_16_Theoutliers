@@ -37,13 +37,3 @@ Dataset Details:
 
 Feature extraction (color / texture / shape) → similarity → ranking → explainability
 
-## 4. Task Split
-
-| Team Member | Responsibility |
-|---|---|
-| devp4681 | Dataset preparation and data loading |
-| dhruvif16 | Feature extraction — color, texture, and shape |
-| aastha280406 | Similarity calculation and ranking |
-| Aashilearnstocode | Explainability, evaluation, and documentation |
-
-This task split is tentative and may be adjusted as the project progresses.
