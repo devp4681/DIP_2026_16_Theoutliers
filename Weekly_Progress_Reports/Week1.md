@@ -42,10 +42,10 @@ Feature extraction (color / texture / shape) → similarity → ranking → expl
 
 | Team Member | Responsibility |
 |---|---|
-| devp4681 | Dataset preparation and data loading *(Dataset is already provided)* |
-| dhruvif16 | Feature extraction — color, texture, and shape |
-| aastha280406 | Similarity calculation and ranking |
-| Aashilearnstocode | Explainability, evaluation, and documentation |
+| Dev Patel | Dataset preparation and data loading *(Dataset is already provided)* |
+| Dhruvi Faldu | Feature extraction — color, texture, and shape |
+| Aastha Gandhi | Similarity calculation and ranking |
+| Aashi Bhimjiyani | Explainability, evaluation, and documentation |
 
 This task split is tentative and may be adjusted as the project progresses.
 *(Note: Since the dataset is already provided, no data collection is required; work focuses on data loading, preprocessing, and pipeline development).*
