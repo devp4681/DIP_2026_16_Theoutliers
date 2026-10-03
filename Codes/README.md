@@ -19,7 +19,3 @@ Install them using:
 pip install -r requirements.txt
 
 
-**2. On the next line, type:**
-
-```text
-## 🔬 Week 1
