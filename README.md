@@ -34,18 +34,19 @@ DIP_2026_16_Theoutliers/
 ├── Codes/
 │   ├── README.md
 │   ├── data/
-│   │   └── .gitkeep
+│   │   ├── .gitkeep
+│   │   └── corrupted_img.py
 │   ├── features/
-│   │   └── .gitkeep
+│   │   ├── .gitkeep
+│   │   └── cache_features.py
 │   ├── retrieval/
-│   │   └── .gitkeep
-│   ├── utils/
-│   │   └── .gitkeep
-│   └── requirements.txt
-├── Mid_Sem_Report/
-│   └── README.md
-├── End_Sem_Report/
-│   └── README.md
+│   │   ├── .gitkeep
+│   │   ├── week1_color_cbir.py
+│   │   ├── week1_color_texture_cbir.py
+│   │   └── week1_color_texture_edge_cbir.py
+│   └── utils/
+│       ├── .gitkeep
+│       └── week1_evaluate.py
 ├── Results/
 │   ├── graphs/
 │   ├── images/
@@ -54,7 +55,10 @@ DIP_2026_16_Theoutliers/
 ├── Weekly_Progress_Reports/
 │   ├── README.md
 │   └── Week1.md
-└── README.md
+├── Mid_Sem_Report/
+├── End_Sem_Report/
+├── README.md
+└── requirements.txt
 ```
 
 ---
