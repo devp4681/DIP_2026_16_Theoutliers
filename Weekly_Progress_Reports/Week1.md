@@ -1,4 +1,4 @@
-# Week 1 Progress Report
+-# Week 1 Progress Report
 
 ## 1. What the Project Needs
 
@@ -49,3 +49,10 @@ Feature extraction (color / texture / shape) → similarity → ranking → expl
 
 This task split is tentative and may be adjusted as the project progresses.
 *(Note: Since the dataset is already provided, no data collection is required; work focuses on data loading, preprocessing, and pipeline development).*
+
+
+
+
+
+## Week 1 Progress
+
