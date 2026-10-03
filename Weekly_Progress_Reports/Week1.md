@@ -74,3 +74,17 @@ This task split is tentative and may be adjusted as the project progresses.
 - HOG (Histogram of Oriented Gradients) was used as the shape/edge descriptor.
 - Feature extraction was performed for both training and test images.
 - Extracted features were cached to avoid repeated computation.
+
+### 3. CBIR Retrieval Methods
+
+Three individual feature-based retrieval methods were implemented:
+
+- HSV color histogram retrieval
+- LBP texture retrieval
+- HOG shape/edge retrieval
+
+Feature fusion was also tested by combining:
+- HSV + LBP
+- HSV + LBP + HOG
+
+Similarity scores were used to rank the training images for each test query.
