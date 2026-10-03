@@ -88,3 +88,25 @@ Feature fusion was also tested by combining:
 - HSV + LBP + HOG
 
 Similarity scores were used to rank the training images for each test query.
+
+### 4. Evaluation
+
+- Retrieval was evaluated using the 600 test images as queries against the 2,400 training images.
+- Class-based and multi-label retrieval metrics were used.
+- Precision@5 and Precision@10 were calculated.
+- Mean Average Precision (mAP) was also calculated.
+- Jaccard similarity and nDCG were used for multi-label retrieval evaluation.
+- Results were saved in CSV format for further analysis.
+
+### 5. Week 1 Results
+
+- HSV provided the strongest individual baseline among the tested feature types.
+- LBP provided useful complementary texture information.
+- HOG performed weaker as an individual descriptor but contributed useful information when combined with other features.
+- Feature fusion generally improved retrieval performance compared with individual descriptors.
+- Among the tested configurations, HSV + LBP + HOG with weights 0.50, 0.25, and 0.25 gave the strongest overall results.
+- Performance varied across different scene classes.
+
+### 6. Week 1 Conclusion
+
+Week 1 established a classical-CV CBIR baseline for the AID Multi-label dataset. HSV color, LBP texture, and HOG shape/edge descriptors were implemented and evaluated individually and in combination. Feature caching was introduced to make repeated experiments more efficient. Evaluation was performed using the 600 test images as queries against the 2,400 training images. Overall, feature fusion provided improved retrieval performance among the tested configurations, with performance varying across different scene classes.
