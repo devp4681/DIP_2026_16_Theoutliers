@@ -19,15 +19,7 @@ Install them using:
 pip install -r requirements.txt
 
 
+**2. On the next line, type:**
+
+```text
 ## 🔬 Week 1
-
-Week 1 implemented a classical-CV CBIR baseline using:
-
-- HSV color histogram
-- LBP texture descriptor
-- HOG shape/edge descriptor
-- Feature fusion
-- Similarity-based image ranking
-- Class-based and multi-label evaluation
-
-Feature caching was used to avoid repeated feature extraction.
