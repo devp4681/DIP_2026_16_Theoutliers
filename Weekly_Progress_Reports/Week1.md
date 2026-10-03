@@ -66,3 +66,11 @@ This task split is tentative and may be adjusted as the project progresses.
 - All 3,000 images were checked for image validity.
 - No problematic or corrupt images were identified.
 - Pillow was used for reliable RGB image loading during feature extraction.
+
+### 2. Feature Extraction
+
+- HSV color histogram was used as the color descriptor.
+- LBP (Local Binary Pattern) was used as the texture descriptor.
+- HOG (Histogram of Oriented Gradients) was used as the shape/edge descriptor.
+- Feature extraction was performed for both training and test images.
+- Extracted features were cached to avoid repeated computation.
