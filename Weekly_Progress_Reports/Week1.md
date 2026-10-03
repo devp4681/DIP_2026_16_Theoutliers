@@ -55,4 +55,14 @@ This task split is tentative and may be adjusted as the project progresses.
 
 
 ## Week 1 Progress
+### 1. Dataset and Image Verification
 
+- Dataset used: AID Multi-label aerial image dataset
+- Total images: 3,000
+- Training images: 2,400
+- Test images: 600
+- Image size: 600 × 600
+- Number of object labels: 17
+- All 3,000 images were checked for image validity.
+- No problematic or corrupt images were identified.
+- Pillow was used for reliable RGB image loading during feature extraction.
