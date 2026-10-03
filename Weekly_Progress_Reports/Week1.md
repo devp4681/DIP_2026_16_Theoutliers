@@ -1,4 +1,4 @@
--# Week 1 Progress Report
+# Week 1 Progress Report
 
 ## 1. What the Project Needs
 
