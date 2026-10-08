@@ -65,4 +65,7 @@ $RECYCLE.BIN/
 *.rar
 data/raw/
 data/large/
-Codes/data/
+Codes/data/images/
+Codes/data/*.csv
+!Codes/data/*.py
+!Codes/data/.gitkeep

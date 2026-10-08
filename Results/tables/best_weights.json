@@ -1,0 +1,39 @@
+{
+  "name": "Final Retrieval Engine v1",
+  "weights": {
+    "hsv": 0.1,
+    "lbp": 0.7,
+    "hog": 0.2
+  },
+  "znorm": false,
+  "selection_metrics": [
+    "Class P@10",
+    "ML P@10",
+    "nDCG@10",
+    "Class mAP",
+    "ML mAP"
+  ],
+  "tie_tolerance": 0.002,
+  "validation_selection_score": 0.3986,
+  "validation_metrics": {
+    "Class P@5": 0.4958,
+    "ML P@5": 0.435,
+    "Jaccard@5": 0.682,
+    "nDCG@5": 0.6998,
+    "Class P@10": 0.4396,
+    "ML P@10": 0.4094,
+    "Jaccard@10": 0.6632,
+    "nDCG@10": 0.6894,
+    "Class mAP": 0.2131,
+    "ML mAP": 0.2416
+  },
+  "feature_tags": {
+    "hsv": "hsv_16x16",
+    "lbp": "lbp_r1_p8",
+    "hog": "hog_128_o9_c16_b2"
+  },
+  "split": {
+    "seed": 42,
+    "val_fraction": 0.2
+  }
+}
