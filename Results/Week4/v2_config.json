@@ -1,7 +1,0 @@
-{
-    "name": "V2_multiscale_lbp",
-    "hsv": 0.10,
-    "lbp_r1_p8": 0.35,
-    "lbp_r2_p16": 0.35,
-    "hog": 0.20
-}
