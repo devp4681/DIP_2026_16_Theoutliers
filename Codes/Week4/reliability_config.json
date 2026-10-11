@@ -1,0 +1,10 @@
+{
+    "formula": "reliability_score = top1_similarity",
+    "components": ["top1_similarity"],
+    "threshold_method": "Fixed absolute thresholds based on 20th and 70th percentiles of validation top-1 similarity distribution across the 5 training folds.",
+    "description": "Validation testing showed that top-1 similarity has the highest Spearman correlation (0.397) with per-query P@10. The top1/top2 gap had negligible correlation (0.019). Therefore, the raw top-1 similarity is used as the most robust and transparent single indicator of reliability.",
+    "thresholds": {
+        "LOW": 0.930,
+        "HIGH": 0.960
+    }
+}
