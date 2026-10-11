@@ -1,0 +1,2 @@
+observed_mean_diff,ci_lower_95,ci_upper_95,seed,n_bootstrap
+0.013333333333333334,0.005,0.021337499999999943,42,10000
