@@ -1,6 +1,5 @@
 # DIP 2026 - Project 16 | Team "Theoutliers"
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub Team](https://img.shields.io/badge/Team-Theoutliers-orange)](#team-members)
 [![Project](https://img.shields.io/badge/Course-DIP--2026-green)](#project-overview)
 
