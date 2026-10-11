@@ -17,10 +17,10 @@
 
 | Team Member / GitHub | Profile Link | Responsibility |
 |---|---|---|
-| **devp4681** | [@devp4681](https://github.com/devp4681) | Dataset preparation and data loading *(Dataset is already provided)* |
-| **dhruvif16** | [@dhruvif16](https://github.com/dhruvif16) | Feature extraction — color, texture, and shape |
+| **devp4681** | [@devp4681](https://github.com/devp4681) | Dataset preparation and data loading |
+| **dhruvif16** | [@dhruvif16](https://github.com/dhruvif16) | Explainability, evaluation, and documentation |
 | **aastha280406** | [@aastha280406](https://github.com/aastha280406) | Similarity calculation and ranking |
-| **Aashilearnstocode** | [@Aashilearnstocode](https://github.com/Aashilearnstocode) | Explainability, evaluation, and documentation |
+| **Aashilearnstocode** | [@Aashilearnstocode](https://github.com/Aashilearnstocode) | Feature extraction - color, texture and shape |
 
 > **Note**: This task split is tentative and may be adjusted as the project progresses. Since the dataset is already provided, work focuses on data loading, inspection, preprocessing, and pipeline development.
 
