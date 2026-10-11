@@ -29,6 +29,7 @@
 
 ## 📂 Repository Structure
 
+```text
 DIP_2026_16_Theoutliers/
 ├── Codes/
 │   ├── Week1/   (color/texture/edge CBIR, feature caching, evaluation)
@@ -42,8 +43,7 @@ DIP_2026_16_Theoutliers/
 ├── README.md
 ├── requirements.txt
 └── .gitignore
-
----
+```
 
 ## 📅 Milestones & Submission Timeline
 
