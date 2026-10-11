@@ -1,0 +1,106 @@
+[
+  {
+    "name": "Week 1 best",
+    "weights": {
+      "hsv": 0.5,
+      "lbp": 0.25,
+      "hog": 0.25
+    }
+  },
+  {
+    "name": "Equal weights",
+    "weights": {
+      "hsv": 0.3333333333333333,
+      "lbp": 0.3333333333333333,
+      "hog": 0.3333333333333333
+    }
+  },
+  {
+    "name": "Engine V1",
+    "weights": {
+      "hsv": 0.1,
+      "lbp": 0.7,
+      "hog": 0.2
+    }
+  },
+  {
+    "name": "grid-global HSV0.1+LBP0.7+HOG0.2",
+    "weights": {
+      "hsv": 0.1,
+      "lbp": 0.7,
+      "hog": 0.2
+    }
+  },
+  {
+    "name": "grid-global HSV0.1+LBP0.6+HOG0.3",
+    "weights": {
+      "hsv": 0.1,
+      "lbp": 0.6,
+      "hog": 0.3
+    }
+  },
+  {
+    "name": "grid-global HSV0.2+LBP0.6+HOG0.2",
+    "weights": {
+      "hsv": 0.2,
+      "lbp": 0.6,
+      "hog": 0.2
+    }
+  },
+  {
+    "name": "grid-global HSV0.1+LBP0.8+HOG0.1",
+    "weights": {
+      "hsv": 0.1,
+      "lbp": 0.8,
+      "hog": 0.1
+    }
+  },
+  {
+    "name": "grid-global HSV0.2+LBP0.5+HOG0.3",
+    "weights": {
+      "hsv": 0.2,
+      "lbp": 0.5,
+      "hog": 0.3
+    }
+  },
+  {
+    "name": "grid-global HSV0.2+LBP0.7+HOG0.1",
+    "weights": {
+      "hsv": 0.2,
+      "lbp": 0.7,
+      "hog": 0.1
+    }
+  },
+  {
+    "name": "grid-global HSV0.1+LBP0.5+HOG0.4",
+    "weights": {
+      "hsv": 0.1,
+      "lbp": 0.5,
+      "hog": 0.4
+    }
+  },
+  {
+    "name": "grid-global HSV0.2+LBP0.4+HOG0.4",
+    "weights": {
+      "hsv": 0.2,
+      "lbp": 0.4,
+      "hog": 0.4
+    }
+  },
+  {
+    "name": "grid-global HSV0.1+LBP0.8+HOG0.1",
+    "weights": {
+      "hsv": 0.1,
+      "lbp": 0.8,
+      "hog": 0.1
+    }
+  },
+  {
+    "name": "grid-global HSV0.2+LBP0.7+HOG0.1",
+    "weights": {
+      "hsv": 0.2,
+      "lbp": 0.7,
+      "hog": 0.1
+    }
+  }
+]
