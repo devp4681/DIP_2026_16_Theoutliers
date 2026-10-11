@@ -1,0 +1,3 @@
+config,family,znorm,w_hsv,w_lbp,w_hog,w_shsv,w_slbp,Class P@5,ML P@5,Jaccard@5,nDCG@5,Class P@10,ML P@10,Jaccard@10,nDCG@10,Class mAP,ML mAP,selection_score
+Week 1 best (HSV+LBP+HOG 0.5/0.25/0.25),test,False,0.5,0.25,0.25,0.0,0.0,0.3687,0.3603,0.6405,0.6598,0.3345,0.3483,0.6273,0.6527,0.1699,0.2296,0.347
+Engine v1,test,False,0.1,0.7,0.2,0.0,0.0,0.4187,0.3803,0.6585,0.6761,0.3733,0.3593,0.6453,0.6699,0.1891,0.2262,0.3636
