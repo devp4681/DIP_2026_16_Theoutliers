@@ -29,37 +29,19 @@
 
 ## 📂 Repository Structure
 
-```text
 DIP_2026_16_Theoutliers/
 ├── Codes/
-│   ├── README.md
-│   ├── data/
-│   │   ├── .gitkeep
-│   │   └── corrupted_img.py
-│   ├── features/
-│   │   ├── .gitkeep
-│   │   └── cache_features.py
-│   ├── retrieval/
-│   │   ├── .gitkeep
-│   │   ├── week1_color_cbir.py
-│   │   ├── week1_color_texture_cbir.py
-│   │   └── week1_color_texture_edge_cbir.py
-│   └── utils/
-│       ├── .gitkeep
-│       └── week1_evaluate.py
+│   ├── Week1/   (color/texture/edge CBIR, feature caching, evaluation)
+│   ├── Week2/   (experiments, stability analysis, retrieval engine v1)
+│   ├── Week3/   (variants and evaluation)
+│   └── Week4/   (retrieval engine v2, reliability, demo)
 ├── Results/
-│   ├── graphs/
-│   ├── images/
-│   ├── tables/
-│   └── README.md
+│   ├── Week1/ … Week4/   (CSV results, figures, notes)
+├── MIDSEM/                (midsem report and presentation)
 ├── Weekly_Progress_Reports/
-│   ├── README.md
-│   └── Week1.md
-├── Mid_Sem_Report/
-├── End_Sem_Report/
 ├── README.md
-└── requirements.txt
-```
+├── requirements.txt
+└── .gitignore
 
 ---
 
