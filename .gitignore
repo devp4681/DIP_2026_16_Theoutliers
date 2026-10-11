@@ -1,17 +1,14 @@
-# Byte-compiled / optimized / DLL files
+# ---------- Python ----------
 __pycache__/
 *.py[cod]
 *$py.class
-
-# C extensions
 *.so
-
-# Distribution / packaging
 .Python
+
+# ---------- Packaging / build ----------
 build/
-develop-eggs/
 dist/
-downloads/
+develop-eggs/
 eggs/
 .eggs/
 lib/
@@ -24,48 +21,59 @@ wheels/
 .installed.cfg
 *.egg
 
-# Virtual Environments
+# ---------- Virtual environments ----------
 venv/
+.venv/
 env/
 ENV/
 env.bak/
 venv.bak/
 
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints
-*/.ipynb_checkpoints/*
+# ---------- Jupyter ----------
+.ipynb_checkpoints/
 
-# MATLAB
-*.asv
-*.m~
-*.slxc
+# ---------- Secrets and logs ----------
+.env
+*.env
+*.log
 
-# IDE & Editor files
+# ---------- Dataset (AID images, never commit) ----------
+images_tr/
+images_test/
+data/raw/
+data/large/
+Codes/data/images/
+
+# ---------- Generated feature caches ----------
+cache/
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.joblib
+
+# ---------- Model weights / large binaries ----------
+*.h5
+*.hdf5
+*.pt
+*.pth
+*.onnx
+
+# ---------- Archives ----------
+*.zip
+*.tar.gz
+*.rar
+
+# ---------- IDE / editor ----------
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# Operating System Files
+# ---------- OS files ----------
+.DS_Store
 Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
-.DS_Store
-
-# Large datasets and weights (keep repos lightweight)
-*.h5
-*.hdf5
-*.pt
-*.pth
-*.onnx
-*.zip
-*.tar.gz
-*.rar
-data/raw/
-data/large/
-Codes/data/images/
-Codes/data/*.csv
-!Codes/data/*.py
-!Codes/data/.gitkeep
