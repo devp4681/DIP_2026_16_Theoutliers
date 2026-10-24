@@ -1,0 +1,299 @@
+"""
+lofo_weight_selection.py
+
+Task 3 & Task 4: Leave-One-Fold-Out (LOFO) Weight Selection and V2 vs V3 Validation.
+
+Protocol:
+- For each of the 5 validation folds (outer fold i = 1..5):
+    1. Use the OTHER 4 folds (training folds) to evaluate all 286 weight configurations on the 4-simplex.
+    2. Select the weight tuple w*(i) that maximizes the mean selection score across those 4 folds.
+    3. Freeze w*(i) and evaluate on the held-out fold i.
+    4. Record held-out Class P@10, ML P@10, ML mAP, nDCG@10, selection score, and w*(i).
+- Repeat for all 5 folds.
+- Calculate unbiased mean +/- standard deviation across the 5 held-out folds.
+- Compare held-out V3 candidate against V2 baseline fold-by-fold.
+- Exports results to CSV and JSON in Week 5/experiments/weight_search/.
+"""
+
+import json
+from pathlib import Path
+import sys
+import time
+import itertools
+import numpy as np
+import pandas as pd
+
+current_dir = Path(__file__).resolve().parent
+project_root = current_dir.parent
+
+sys.path.append(str(current_dir))
+sys.path.append(str(project_root / "Week1"))
+sys.path.append(str(project_root / "Week2"))
+sys.path.append(str(project_root / "Week4"))
+
+from cv_experiment import (
+    CVDataset, COMPONENTS, DEFAULT_WEIGHTS, DEFAULT_SIM_FNS,
+    REL_JACCARD, compute_fold_sims
+)
+from distances import hellinger_sim, cos_sim
+
+ALL_HELLINGER_FNS = {
+    "hsv": hellinger_sim,
+    "lbp_r1_p8": hellinger_sim,
+    "lbp_r2_p16": hellinger_sim,
+    "hog": cos_sim
+}
+
+OUT_DIR = current_dir / "experiments" / "weight_search"
+OUT_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def simplex_grid(n=4, step=0.1):
+    k = int(round(1.0 / step))
+    for c in itertools.product(range(k + 1), repeat=n):
+        if sum(c) == k:
+            yield {COMPONENTS[i]: round(c[i] / k, 2) for i in range(n)}
+
+
+def evaluate_single_fold_ranking(S, fold_helper):
+    h = fold_helper
+    if h["exclude_mask"] is not None and np.any(h["exclude_mask"]):
+        S = S.copy()
+        S[h["exclude_mask"]] = -np.inf
+
+    order = np.argsort(-S, axis=1, kind="stable")
+    rows = np.arange(S.shape[0])[:, None]
+
+    rc = h["same_class"][rows, order]
+    rm = h["rel_ml"][rows, order]
+    jg = h["J_mat"][rows, order]
+
+    cp10 = float(rc[:, :10].mean())
+    mlp10 = float(rm[:, :10].mean())
+
+    dcg = (jg[:, :10] * h["disc"]).sum(axis=1)
+    ndcg10 = float((dcg[h["ok_idcg"]] / h["idcg"][h["ok_idcg"]]).mean())
+
+    # ML mAP
+    r = rm.astype(np.float64)
+    cum = np.cumsum(r, axis=1)
+    prec = cum / np.arange(1, r.shape[1] + 1)
+    n_rel = r.sum(axis=1)
+    ok = n_rel > 0
+    ap = np.full(r.shape[0], np.nan)
+    ap[ok] = (prec[ok] * r[ok]).sum(axis=1) / n_rel[ok]
+    ml_map = float(np.nanmean(ap))
+
+    # Class mAP
+    rc_f = rc.astype(np.float64)
+    cum_c = np.cumsum(rc_f, axis=1)
+    prec_c = cum_c / np.arange(1, rc_f.shape[1] + 1)
+    n_rel_c = rc_f.sum(axis=1)
+    ok_c = n_rel_c > 0
+    ap_c = np.full(rc_f.shape[0], np.nan)
+    ap_c[ok_c] = (prec_c[ok_c] * rc_f[ok_c]).sum(axis=1) / n_rel_c[ok_c]
+    class_map = float(np.nanmean(ap_c))
+
+    sel_score = (cp10 + mlp10 + ndcg10 + class_map + ml_map) / 5.0
+    return {
+        "Class P@10": cp10,
+        "ML P@10": mlp10,
+        "ML mAP": ml_map,
+        "nDCG@10": ndcg10,
+        "Class mAP": class_map,
+        "selection_score": sel_score
+    }
+
+
+def main():
+    print("=" * 105)
+    print("TASK 3 & 4: LEAVE-ONE-FOLD-OUT (LOFO) WEIGHT SELECTION & V2 vs V3 VALIDATION")
+    print("=" * 105)
+
+    dataset = CVDataset()
+    grid = list(simplex_grid(n=4, step=0.1))
+    print(f"Loaded dataset: 2,400 training images, 5 folds.")
+    print(f"Weight search space: {len(grid)} combinations on 4-simplex (step 0.1).")
+
+    # 1. Precompute All-Hellinger component similarity matrices for all 5 folds
+    print("\nPrecomputing All-Hellinger similarity matrices for all 5 folds...")
+    fold_sims = []
+    fold_helpers = []
+    disc = 1.0 / np.log2(np.arange(2, 12))
+
+    for fold_i in range(5):
+        fd = dataset.get_fold_data(fold_i)
+        sims = compute_fold_sims(fd, ALL_HELLINGER_FNS)
+        fold_sims.append(sims)
+
+        same_class = (fd["q_cls"][:, None] == fd["g_cls"][None, :])
+        rel_ml = (fd["J_mat"] >= REL_JACCARD)
+        ideal = -np.sort(-fd["J_mat"], axis=1)[:, :10]
+        idcg = (ideal * disc).sum(axis=1)
+        ok_idcg = idcg > 0
+
+        fold_helpers.append({
+            "same_class": same_class,
+            "rel_ml": rel_ml,
+            "J_mat": fd["J_mat"],
+            "idcg": idcg,
+            "ok_idcg": ok_idcg,
+            "disc": disc,
+            "exclude_mask": fd["exclude_mask"]
+        })
+
+    # 2. Evaluate all 286 combinations on each fold individually
+    # grid_scores matrix: shape (286, 5) storing selection_score
+    print("\nEvaluating all 286 weight configurations across all 5 folds...")
+    start_eval = time.time()
+    fold_metric_table = []  # list of dicts: [w_idx][fold_i] -> metrics
+
+    for w_idx, w in enumerate(grid):
+        active = [c for c in COMPONENTS if w[c] > 0]
+        w_fold_metrics = []
+        for fold_i in range(5):
+            sims = fold_sims[fold_i]
+            S = sum(w[c] * sims[c] for c in active)
+            m = evaluate_single_fold_ranking(S, fold_helpers[fold_i])
+            w_fold_metrics.append(m)
+        fold_metric_table.append(w_fold_metrics)
+
+    print(f"Evaluated 286 x 5 = 1,430 fold rankings in {time.time() - start_eval:.1f}s.")
+
+    # 3. Leave-One-Fold-Out Weight Selection
+    print("\n" + "=" * 105)
+    print("LEAVE-ONE-FOLD-OUT (OUT-OF-FOLD) WEIGHT TUNING RESULTS")
+    print("=" * 105)
+
+    lofo_results = []
+    for test_fold_i in range(5):
+        train_fold_indices = [f for f in range(5) if f != test_fold_i]
+        
+        # Find weight combination maximizing selection score on the 4 train folds
+        best_w_idx = -1
+        best_train_score = -1.0
+        
+        for w_idx in range(len(grid)):
+            train_scores = [fold_metric_table[w_idx][f]["selection_score"] for f in train_fold_indices]
+            mean_train_score = np.mean(train_scores)
+            if mean_train_score > best_train_score:
+                best_train_score = mean_train_score
+                best_w_idx = w_idx
+                
+        selected_w = grid[best_w_idx]
+        held_out_metrics = fold_metric_table[best_w_idx][test_fold_i]
+        
+        w_str = "+".join(f"{c.upper()}:{selected_w[c]:.2f}" for c in COMPONENTS if selected_w[c] > 0)
+        
+        lofo_results.append({
+            "fold": test_fold_i + 1,
+            "train_folds": [f + 1 for f in train_fold_indices],
+            "train_selection_score": round(best_train_score, 4),
+            "selected_weights": selected_w,
+            "weights_str": w_str,
+            "Class P@10": held_out_metrics["Class P@10"],
+            "ML P@10": held_out_metrics["ML P@10"],
+            "ML mAP": held_out_metrics["ML mAP"],
+            "nDCG@10": held_out_metrics["nDCG@10"],
+            "Class mAP": held_out_metrics["Class mAP"],
+            "selection_score": held_out_metrics["selection_score"]
+        })
+        
+        print(f"Fold {test_fold_i + 1} Held-Out: Selected Weights {w_str:<32} "
+              f"| Train Score: {best_train_score:.4f} "
+              f"| Test Class P@10: {held_out_metrics['Class P@10']:.4f} "
+              f"| ML P@10: {held_out_metrics['ML P@10']:.4f} "
+              f"| ML mAP: {held_out_metrics['ML mAP']:.4f} "
+              f"| nDCG@10: {held_out_metrics['nDCG@10']:.4f} "
+              f"| Selection: {held_out_metrics['selection_score']:.4f}")
+
+    df_lofo = pd.DataFrame(lofo_results)
+    df_lofo.to_csv(OUT_DIR / "lofo_v3_candidate_folds.csv", index=False)
+
+    # 4. Compare V2 vs V3 candidate fold-by-fold
+    # Load V2 baseline folds
+    base_folds_path = current_dir / "experiments" / "baseline" / "v2_baseline_folds.csv"
+    df_v2 = pd.read_csv(base_folds_path)
+
+    comparison_rows = []
+    for i in range(5):
+        v2_r = df_v2.iloc[i]
+        v3_r = df_lofo.iloc[i]
+        
+        comparison_rows.append({
+            "fold": i + 1,
+            "V2 Class P@10": v2_r["Class P@10"],
+            "V3 Class P@10": v3_r["Class P@10"],
+            "Delta Class P@10": v3_r["Class P@10"] - v2_r["Class P@10"],
+            "V2 ML P@10": v2_r["ML P@10"],
+            "V3 ML P@10": v3_r["ML P@10"],
+            "Delta ML P@10": v3_r["ML P@10"] - v2_r["ML P@10"],
+            "V2 ML mAP": v2_r["ML mAP"],
+            "V3 ML mAP": v3_r["ML mAP"],
+            "Delta ML mAP": v3_r["ML mAP"] - v2_r["ML mAP"],
+            "V2 nDCG@10": v2_r["nDCG@10"],
+            "V3 nDCG@10": v3_r["nDCG@10"],
+            "Delta nDCG@10": v3_r["nDCG@10"] - v2_r["nDCG@10"],
+            "V2 Selection": v2_r["selection_score"],
+            "V3 Selection": v3_r["selection_score"],
+            "Delta Selection": v3_r["selection_score"] - v2_r["selection_score"],
+            "V3 Selected Weights": v3_r["weights_str"]
+        })
+
+    df_comp = pd.DataFrame(comparison_rows)
+    df_comp.to_csv(OUT_DIR / "v2_vs_v3_per_fold_comparison.csv", index=False)
+
+    print("\n" + "=" * 105)
+    print("PER-FOLD COMPARISON: V2 BASELINE vs V3 CANDIDATE (HELD-OUT EVALUATION)")
+    print("=" * 105)
+    display_cols = ["fold", "V2 Class P@10", "V3 Class P@10", "Delta Class P@10", 
+                    "V2 ML P@10", "V3 ML P@10", "Delta ML P@10", 
+                    "V2 Selection", "V3 Selection", "Delta Selection"]
+    print(df_comp[display_cols].round(4).to_string(index=False))
+
+    # Summary table
+    metrics_list = ["Class P@10", "ML P@10", "ML mAP", "nDCG@10", "selection_score"]
+    v2_means = {m: df_v2[m].mean() for m in metrics_list}
+    v2_stds = {m: df_v2[m].std() for m in metrics_list}
+    v3_means = {m: df_lofo[m].mean() for m in metrics_list}
+    v3_stds = {m: df_lofo[m].std() for m in metrics_list}
+
+    print("\n" + "=" * 105)
+    print(f"{'Metric':<20} {'V2 Baseline (Mean +/- Std)':<30} {'V3 Candidate (LOFO)':<30} {'Gain (Delta)':<18} {'Rel Gain (%)':<15}")
+    print("-" * 115)
+    for m in metrics_list:
+        delta = v3_means[m] - v2_means[m]
+        pct = (delta / v2_means[m]) * 100
+        print(f"{m:<20} {v2_means[m]:.4f} +/- {v2_stds[m]:.4f}          {v3_means[m]:.4f} +/- {v3_stds[m]:.4f}          {delta:+.4f}             {pct:+.2f}%")
+    print("=" * 105)
+
+    # Save summary JSON
+    summary_out = {
+        "model": "V3 Candidate (All-Hellinger + LOFO Weight Selection)",
+        "features": {
+            "hsv": "Hellinger distance (1 - H)",
+            "lbp_r1_p8": "Hellinger distance (1 - H)",
+            "lbp_r2_p16": "Hellinger distance (1 - H)",
+            "hog": "Cosine similarity"
+        },
+        "normalization": "Raw L1 for HSV/LBP, L2-Hys for HOG (No Z-Score)",
+        "lofo_weights_per_fold": [r["selected_weights"] for r in lofo_results],
+        "metrics_held_out": {
+            m: {
+                "mean": round(float(v3_means[m]), 4),
+                "std": round(float(v3_stds[m]), 4),
+                "v2_baseline_mean": round(float(v2_means[m]), 4),
+                "v2_baseline_std": round(float(v2_stds[m]), 4),
+                "delta": round(float(v3_means[m] - v2_means[m]), 4),
+                "rel_gain_percent": round(float((v3_means[m] - v2_means[m]) / v2_means[m] * 100), 2)
+            }
+            for m in metrics_list
+        }
+    }
+    (OUT_DIR / "v3_candidate_lofo_summary.json").write_text(json.dumps(summary_out, indent=2))
+    print(f"\nSaved LOFO results to: {OUT_DIR / 'lofo_v3_candidate_folds.csv'}")
+    print(f"Saved comparison to: {OUT_DIR / 'v2_vs_v3_per_fold_comparison.csv'}")
+    print(f"Saved summary JSON to: {OUT_DIR / 'v3_candidate_lofo_summary.json'}")
+
+if __name__ == "__main__":
+    main()
