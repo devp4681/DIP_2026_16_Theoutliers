@@ -1,0 +1,14 @@
+{
+  "week": 7,
+  "status": "V4 FROZEN on train/LOFO evidence. Final test (V2 vs V3 vs V4) NOT yet run: test-split feature caches were not supplied.",
+  "frozen_system": "V4 = V3 + gallery-only k-reciprocal re-ranking",
+  "V3": {
+    "weights": {"hsv": 0.20, "lbp_r1_p8": 0.40, "lbp_r2_p16": 0.20, "hog": 0.20},
+    "similarities": {"hsv": "hellinger", "lbp_r1_p8": "hellinger", "lbp_r2_p16": "hellinger", "hog": "cosine"}
+  },
+  "k_reciprocal": {"k1": 30, "k2": 3, "lambda": 0.5},
+  "k2_check": {"values_tested": [1, 2, 3], "result": "k2=3 kept (no alternative met the Week 6 rule)", "details": "k2_check/k2_decision.json"},
+  "reliability": {"config": "reliability_recalibration/reliability_config_v4.json", "score": "top1_sim_v4 = 1 - D_V4(q, top-1)", "thresholds": {"LOW": 0.6419, "HIGH": 0.8078}, "calibrated_on": "5-fold LOFO held-out queries only"},
+  "rejected": {"neighbourhood_expansion": "ne_ablation/ (negative result)"},
+  "not_tested": ["spatial pyramid / Gabor / LAB features"]
+}
