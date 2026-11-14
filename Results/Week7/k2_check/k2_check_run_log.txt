@@ -1,0 +1,26 @@
+
+Precomputing V3 similarity & distance matrices for all 5 folds...
+baseline reproduced: V3 and V4(k2=3) match Week 6 on all six metrics
+
+=== mean over 5 folds ===
+ system  Class P@10_mean  ML P@10_mean  nDCG@10_mean  Class mAP_mean  ML mAP_mean  selection_score_mean  sec_per_fold_KR
+     V3           0.5069        0.4556        0.7286          0.2547       0.2738                0.4439              NaN
+V4 k2=1           0.5488        0.4624        0.7232          0.3037       0.2888                0.4654           0.6271
+V4 k2=2           0.5383        0.4596        0.7291          0.3171       0.2930                0.4674           0.7811
+V4 k2=3           0.5361        0.4626        0.7298          0.3206       0.2938                0.4686           0.8026
+
+=== selection score per fold ===
+fold          1       2       3       4       5
+system                                         
+V3       0.4409  0.4517  0.4444  0.4418  0.4408
+V4 k2=1  0.4636  0.4724  0.4653  0.4678  0.4577
+V4 k2=2  0.4663  0.4752  0.4670  0.4664  0.4623
+V4 k2=3  0.4666  0.4756  0.4668  0.4690  0.4650
+
+=== vs current V4 (k2=3) ===
+candidate  mean_delta_selection  std_delta                                    per_fold_delta  positive_folds  mean_delta_class_p10  gain_gt_0.005  positive_folds_ge_4  class_p10_not_lower  replaces_k2_3
+     k2=1              -0.00322    0.00247 [-0.00295, -0.00319, -0.0015, -0.00112, -0.00735]               0               0.01267          False                False                 True          False
+     k2=2              -0.00115    0.00139   [-0.0003, -0.0004, 0.00024, -0.00257, -0.00274]               1               0.00221          False                False                 True          False
+
+LOFO-selected k2 per fold: [3, 3, 3, 3, 3]
+DECISION: {"k2_values_tested": [1, 2, 3], "k1": 30, "lambda": 0.5, "frozen_k2": 3, "v4_changed": false, "lofo_selected_k2_per_fold": [3, 3, 3, 3, 3], "rule": "gain>0.005 selection score vs k2=3, >=4/5 folds positive, Class P@10 not lower", "test_set_used": false}
