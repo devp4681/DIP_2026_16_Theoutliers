@@ -1,0 +1,28 @@
+
+Precomputing V3 similarity & distance matrices for all 5 folds...
+Spearman correlations (pooled 2,400 LOFO queries):
+            score  spearman_vs_class_p10  spearman_vs_ml_p10  spearman_vs_class_ap
+      top1_sim_v4                  0.562               0.342                 0.519
+           gap_v4                 -0.060              -0.078                -0.046
+top1_sim_v3_of_v4                  0.342               0.342                 0.308
+
+chosen score: top1_sim_v4; thresholds LOW=0.6419 HIGH=0.8078
+
+Held-out categories (thresholds from the other 4 folds):
+        n_queries  pct_queries  class_p10  ml_p10  class_ap
+label                                                      
+HIGH        723.0      30.1250     0.8136  0.6134    0.4900
+MEDIUM     1199.0      49.9583     0.4726  0.4257    0.2844
+LOW         478.0      19.9167     0.2759  0.3272    0.1552
+
+per-fold Class P@10 by category:
+label   HIGH  MEDIUM    LOW
+fold                       
+1      0.794   0.497  0.243
+2      0.828   0.466  0.310
+3      0.844   0.448  0.275
+4      0.792   0.502  0.265
+5      0.810   0.452  0.279
+folds with HIGH > MEDIUM > LOW: 5/5
+
+Old Week 4 thresholds (V2 scale) applied to V4's V3-similarity score put this share in LOW/MED/HIGH: {'LOW': 0.894, 'MEDIUM': 0.101, 'HIGH': 0.005}
