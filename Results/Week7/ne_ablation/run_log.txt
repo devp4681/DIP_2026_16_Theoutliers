@@ -1,0 +1,41 @@
+
+Precomputing V3 similarity & distance matrices for all 5 folds...
+
+--- sanity checks ---
+all sanity checks passed
+
+=== BASELINE REPRODUCTION (mean over 5 folds) ===
+V3 Class P@10  recorded=0.5069 reproduced=0.5069 MATCH
+V3 Class mAP   recorded=0.2547 reproduced=0.2547 MATCH
+V3 ML P@10     recorded=0.4556 reproduced=0.4556 MATCH
+V3 ML mAP      recorded=0.2738 reproduced=0.2738 MATCH
+V3 nDCG@10     recorded=0.7286 reproduced=0.7286 MATCH
+V3 selection_score recorded=0.4439 reproduced=0.4439 MATCH
+V4 Class P@10  recorded=0.5361 reproduced=0.5361 MATCH
+V4 Class mAP   recorded=0.3206 reproduced=0.3206 MATCH
+V4 ML P@10     recorded=0.4626 reproduced=0.4626 MATCH
+V4 ML mAP      recorded=0.2938 reproduced=0.2938 MATCH
+V4 nDCG@10     recorded=0.7298 reproduced=0.7298 MATCH
+V4 selection_score recorded=0.4686 reproduced=0.4686 MATCH
+
+LOFO-selected configs: [(1, {'m': 5, 'beta': 0.2}), (2, {'m': 10, 'beta': 0.2}), (3, {'m': 10, 'beta': 0.2}), (4, {'m': 5, 'beta': 0.2}), (5, {'m': 10, 'beta': 0.2})]
+
+=== RESULTS (class metrics) ===
+Class P@10      V4 0.5361±0.0125 | cand 0.5358±0.0121 | delta -0.0003 (-0.05%) | pos folds 1/5 | ratio -0.33
+   per-fold delta: [-0.0012 -0.0008 -0.0004  0.      0.001 ]
+Class mAP       V4 0.3206±0.0045 | cand 0.3176±0.0046 | delta -0.0030 (-0.93%) | pos folds 0/5 | ratio -10.99
+   per-fold delta: [-0.0034 -0.0027 -0.0028 -0.0031 -0.003 ]
+class_proxy     V4 0.4284±0.0075 | cand 0.4267±0.0073 | delta -0.0016 (-0.38%) | pos folds 0/5 | ratio -3.32
+   per-fold delta: [-0.0023 -0.0018 -0.0016 -0.0015 -0.001 ]
+ML P@10         V4 0.4626±0.0042 | cand 0.4625±0.0036 | delta -0.0002 (-0.04%) | pos folds 2/5 | ratio -0.15
+   per-fold delta: [-0.0006 -0.0004  0.0002 -0.0015  0.0015]
+ML mAP          V4 0.2938±0.0040 | cand 0.2936±0.0043 | delta -0.0002 (-0.09%) | pos folds 0/5 | ratio -0.83
+   per-fold delta: [-0.0003 -0.     -0.     -0.0007 -0.0001]
+nDCG@10         V4 0.7298±0.0030 | cand 0.7301±0.0029 | delta +0.0002 (+0.03%) | pos folds 4/5 | ratio 0.50
+   per-fold delta: [ 0.0003  0.0003  0.0008 -0.0006  0.0004]
+selection_score V4 0.4686±0.0042 | cand 0.4679±0.0040 | delta -0.0007 (-0.15%) | pos folds 0/5 | ratio -1.48
+   per-fold delta: [-0.0011 -0.0007 -0.0004 -0.0012 -0.    ]
+query-level P@10: {'unchanged': 2308, 'worsened': 50, 'improved': 42} | AP: {'worsened': 1607, 'improved': 793}
+bootstrap: {'d_p10': {'mean': -0.00029166666666666675, 'ci95_low': -0.001125, 'ci95_high': 0.0005}, 'd_ap': {'mean': -0.0029861418957996735, 'ci95_low': -0.003324886853905873, 'ci95_high': -0.0026681034011862416}}
+rule: {"mode": "FULL", "criterion_1_delta_gt_0.005": {"value": -0.0006895928469424883, "metric": "selection_score", "pass": false}, "criterion_2_>=4_of_5_folds_positive": {"positive_folds": 0, "pass": false}, "criterion_3_class_p10_not_decreased": {"delta": -0.00029166666666664566, "pass": false}, "all_pass": false}
+DECISION: V4 retained

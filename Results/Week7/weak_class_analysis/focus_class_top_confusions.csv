@@ -1,0 +1,7 @@
+query_class,system,own_class_share,confusion_1,confusion_2,confusion_3
+square,V3,0.2125,denseresidential (0.201),industrial (0.085),commercial (0.079)
+square,V4,0.22625,denseresidential (0.179),park (0.070),industrial (0.069)
+bridge,V3,0.15625,port (0.138),river (0.130),park (0.094)
+bridge,V4,0.17375,port (0.166),river (0.121),pond (0.066)
+airport,V3,0.30375,railwaystation (0.145),commercial (0.114),industrial (0.074)
+airport,V4,0.36375,railwaystation (0.126),commercial (0.102),industrial (0.068)

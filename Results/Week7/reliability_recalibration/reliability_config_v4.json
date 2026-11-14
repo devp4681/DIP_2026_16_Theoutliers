@@ -1,0 +1,12 @@
+{
+  "version": "V4 (k1=30, k2=3, lambda=0.5)",
+  "formula": "reliability_score = top1_sim_v4",
+  "thresholds": {
+    "LOW": 0.6418730388559213,
+    "HIGH": 0.8078253124880242
+  },
+  "threshold_method": "20th / 70th percentile of the score over all 2,400 LOFO held-out queries (train data only)",
+  "spearman_vs_class_p10": 0.5624709227291343,
+  "test_set_used": false,
+  "replaces": "Week4/reliability_config.json (V2 scale; not valid for V4 scores)"
+}

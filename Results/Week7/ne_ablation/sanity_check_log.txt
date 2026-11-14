@@ -1,0 +1,5 @@
+
+Precomputing V3 similarity & distance matrices for all 5 folds...
+
+--- sanity checks ---
+all sanity checks passed
