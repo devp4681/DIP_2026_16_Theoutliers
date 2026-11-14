@@ -1,0 +1,20 @@
+{
+  "k2_values_tested": [
+    1,
+    2,
+    3
+  ],
+  "k1": 30,
+  "lambda": 0.5,
+  "frozen_k2": 3,
+  "v4_changed": false,
+  "lofo_selected_k2_per_fold": [
+    3,
+    3,
+    3,
+    3,
+    3
+  ],
+  "rule": "gain>0.005 selection score vs k2=3, >=4/5 folds positive, Class P@10 not lower",
+  "test_set_used": false
+}
