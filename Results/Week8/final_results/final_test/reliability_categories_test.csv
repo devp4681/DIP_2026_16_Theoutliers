@@ -1,0 +1,4 @@
+label,n_queries,class_p10,ml_p10,class_ap,pct_queries,note
+HIGH,125,0.8536,0.5496,0.5425099976397302,20.833333333333332,"thresholds were set on 1,920-image LOFO galleries; the Jaccard part of D_V4 depends on gallery density, so the HIGH/MEDIUM/LOW shares here may differ from LOFO (about 30/50/20). Reported, not re-tuned."
+MEDIUM,308,0.44805194805194803,0.4103896103896104,0.2846019544393101,51.333333333333336,"thresholds were set on 1,920-image LOFO galleries; the Jaccard part of D_V4 depends on gallery density, so the HIGH/MEDIUM/LOW shares here may differ from LOFO (about 30/50/20). Reported, not re-tuned."
+LOW,167,0.21137724550898201,0.270059880239521,0.12109837413401564,27.833333333333332,"thresholds were set on 1,920-image LOFO galleries; the Jaccard part of D_V4 depends on gallery density, so the HIGH/MEDIUM/LOW shares here may differ from LOFO (about 30/50/20). Reported, not re-tuned."

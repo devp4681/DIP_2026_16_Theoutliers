@@ -1,0 +1,65 @@
+{
+  "frozen_final_system": "V4 = V3 + gallery-only k-reciprocal re-ranking",
+  "V2": {
+    "name": "V2_multiscale_lbp",
+    "hsv": 0.1,
+    "lbp_r1_p8": 0.35,
+    "lbp_r2_p16": 0.35,
+    "hog": 0.2
+  },
+  "V3_weights": {
+    "hsv": 0.2,
+    "lbp_r1_p8": 0.4,
+    "lbp_r2_p16": 0.2,
+    "hog": 0.2
+  },
+  "V3_similarities": {
+    "hsv": "hellinger",
+    "lbp_r1_p8": "hellinger",
+    "lbp_r2_p16": "hellinger",
+    "hog": "cosine"
+  },
+  "V3_normalisation": "raw fusion (no z-score); HSV/LBP histograms L1-normalised; HOG L2-Hys",
+  "V4_k_reciprocal": {
+    "k1": 30,
+    "k2": 3,
+    "lambda": 0.5,
+    "gallery_only": true
+  },
+  "reliability": {
+    "score": "reliability_score = top1_sim_v4",
+    "thresholds": {
+      "LOW": 0.6418730388559213,
+      "HIGH": 0.8078253124880242
+    },
+    "calibrated_on": "LOFO held-out queries (train data) only"
+  },
+  "evaluation_protocol": {
+    "folds": "Week2/folds_5.json (5-fold LOFO, 480 queries / 1,920 gallery per fold)",
+    "final_test": "600 test queries vs 2,400 gallery",
+    "metrics": [
+      "Class P@5",
+      "ML P@5",
+      "Jaccard@5",
+      "nDCG@5",
+      "Class P@10",
+      "ML P@10",
+      "Jaccard@10",
+      "nDCG@10",
+      "Class mAP",
+      "ML mAP",
+      "selection_score"
+    ]
+  },
+  "not_adopted": [
+    "AQE",
+    "AQE then k-reciprocal",
+    "neighbourhood expansion (NE)",
+    "k2 = 1, 2",
+    "z-score normalisation"
+  ],
+  "not_tested": [
+    "spatial pyramid / Gabor / LAB features"
+  ],
+  "final_test_status": "completed"
+}

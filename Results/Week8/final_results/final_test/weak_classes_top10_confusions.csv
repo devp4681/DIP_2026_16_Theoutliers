@@ -1,0 +1,10 @@
+system,query_class,n_queries,own_class_share,confusion_1,confusion_2,confusion_3
+V2,square,20,0.1,denseresidential (0.150),resort (0.115),mediumresidential (0.105)
+V2,bridge,20,0.115,pond (0.145),park (0.135),river (0.110)
+V2,airport,20,0.08,resort (0.140),denseresidential (0.125),commercial (0.090)
+V3,square,20,0.15,denseresidential (0.175),mediumresidential (0.105),resort (0.070)
+V3,bridge,20,0.105,river (0.130),park (0.130),port (0.085)
+V3,airport,20,0.07,storagetanks (0.165),viaduct (0.150),commercial (0.115)
+V4,square,20,0.205,denseresidential (0.190),industrial (0.095),mediumresidential (0.080)
+V4,bridge,20,0.085,river (0.150),industrial (0.100),park (0.090)
+V4,airport,20,0.12,viaduct (0.175),storagetanks (0.150),denseresidential (0.145)

@@ -1,0 +1,45 @@
+{
+  "name": "V3_all_hellinger_fusion",
+  "descriptors": {
+    "hsv": {
+      "tag": "hsv_16x16",
+      "norm": "L1",
+      "sim_fn": "hellinger"
+    },
+    "lbp_r1_p8": {
+      "tag": "lbp_r1_p8",
+      "norm": "L1",
+      "sim_fn": "hellinger"
+    },
+    "lbp_r2_p16": {
+      "tag": "lbp_r2_p16",
+      "norm": "L1",
+      "sim_fn": "hellinger"
+    },
+    "hog": {
+      "tag": "hog_128_o9_c16_b2",
+      "norm": "L2-Hys",
+      "sim_fn": "cosine"
+    }
+  },
+  "weights": {
+    "hsv": 0.20,
+    "lbp_r1_p8": 0.40,
+    "lbp_r2_p16": 0.20,
+    "hog": 0.20
+  },
+  "znorm": false,
+  "selection_metrics": {
+    "class_p10": 0.5069,
+    "class_p10_std": 0.0084,
+    "ml_p10": 0.4556,
+    "ml_p10_std": 0.0064,
+    "ml_map": 0.2738,
+    "ml_map_std": 0.0042,
+    "ndcg10": 0.7286,
+    "ndcg10_std": 0.0032,
+    "selection_score": 0.4439,
+    "selection_score_std": 0.0046
+  },
+  "evaluation_protocol": "Leave-One-Fold-Out 5-Fold Cross-Validation on folds_5.json"
+}

@@ -1,0 +1,3 @@
+candidate,mean_delta_selection,std_delta,per_fold_delta,positive_folds,mean_delta_class_p10,gain_gt_0.005,positive_folds_ge_4,class_p10_not_lower,replaces_k2_3
+k2=1,-0.0032226772660173264,0.0024725625754364673,"[-0.00295, -0.00319, -0.0015, -0.00112, -0.00735]",0,0.012666666666666692,False,False,True,False
+k2=2,-0.0011539914273427376,0.0013932409394576892,"[-0.0003, -0.0004, 0.00024, -0.00257, -0.00274]",1,0.0022083333333333677,False,False,True,False

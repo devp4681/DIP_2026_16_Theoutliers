@@ -1,0 +1,12 @@
+{
+  "started_at": "2026-11-13 07:39:57",
+  "finished_at": "2026-11-13 07:39:59",
+  "status": "completed",
+  "v4": {
+    "k1": 30,
+    "k2": 3,
+    "lambda": 0.5
+  },
+  "seconds": 6.236227035522461,
+  "note": "final test run once; no tuning allowed after this point"
+}

@@ -1,0 +1,5 @@
+comparison,metric,classes_improved,classes_worsened,sign_test_p
+V4 vs V2,class_p10,24,6,0.0014309063553810122
+V4 vs V2,class_ap,26,4,5.9476122260093696e-05
+V4 vs V3,class_p10,21,8,0.0241195447742939
+V4 vs V3,class_ap,26,4,5.9476122260093696e-05
